@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ScavengrMble</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_home_list">Scavengr</string>
+    <string name="title_activity_new_game">Create a new game</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_person">User</string>
+    <string name="action_new">Add a Photo</string>
+    <string name="menu_title">My Photos</string>
+    <string name="photo_label">Add a Photo</string>
+    <string name="save_button_text">Finish</string>
+    <string name="cancel_button_text">Cancel</string>
+
+    <string name="title_activity_login">Scavengr</string>
+    <string name="login_intro">Login to Scavengr using your Facebook account</string>
+    <string name="login">Log in</string>
+    <string name="logout">Log out</string>
+    <string name="app_id">1547111195538085</string>
+    <string name="no_data">No data</string>
+
+</resources>
