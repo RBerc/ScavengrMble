@@ -1,18 +1,7 @@
 package com.parse.scavengrmble;
 
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.parse.ParseAnalytics;
-import com.parse.ParseFacebookUtils;
-import com.parse.facebook.*;
-import com.parse.ParseUser;
-import com.parse.ParseException;
-import com.parse.LogInCallback;
-
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -25,7 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.os.Build;
+
+import com.parse.LogInCallback;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Rob on 4/10/2015.
@@ -67,7 +64,8 @@ public class LoginActivity extends Activity{
         LoginActivity.this.progressDialog = ProgressDialog.show(
                 LoginActivity.this, "", "Logging in...", true);
         List<String> permissions = Arrays.asList("public_profile", "user_about_me", "user_friends");
-        ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
+        ParseFacebookUtils.logInWithReadPermissionsInBackground(this,permissions, new LogInCallback()
+        {
             @Override
             public void done(ParseUser user, ParseException err) {
                 LoginActivity.this.progressDialog.dismiss();
@@ -93,11 +91,13 @@ public class LoginActivity extends Activity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+        //ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode,resultCode,data);
+
     }
 
     private void showHomeListActivity() {
-        //Log.i(AnypicApplication.TAG, "entered showHomeListActivity");
+
         Intent intent = new Intent(this, HomeListActivity.class);
         startActivity(intent);
         finish(); // This closes the login screen so it's not on the back stack

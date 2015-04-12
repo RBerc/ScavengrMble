@@ -1,8 +1,5 @@
 package com.parse.scavengrmble;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Bitmap;
@@ -24,10 +21,13 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 /**
  * Created by Rob on 4/11/2015.
  */
-public class CameraFragment {
+public class CameraFragment extends Fragment{
     public static final String TAG = "CameraFragment";
 
     private Camera camera;
@@ -51,6 +51,7 @@ public class CameraFragment {
                 photoButton.setEnabled(false);
                 Toast.makeText(getActivity(), "No camera detected",
                         Toast.LENGTH_LONG).show();
+
             }
         }
 
