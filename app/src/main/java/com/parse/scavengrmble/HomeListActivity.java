@@ -4,6 +4,10 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.content.Intent;
 
 
 public class HomeListActivity extends ListActivity {
@@ -12,6 +16,15 @@ public class HomeListActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_list);
+
+        Button createGameButton = (Button)findViewById(R.id.create_game_button);
+        createGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openNewPhotoActivity = new Intent(HomeListActivity.this, NewPhotoActivity.class);
+                startActivity(openNewPhotoActivity);
+            }
+        });
     }
 
 
