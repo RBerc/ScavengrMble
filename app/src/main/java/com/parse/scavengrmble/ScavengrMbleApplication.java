@@ -8,6 +8,7 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.PushService;
+import com.facebook.FacebookSdk;
 
 
 
@@ -42,6 +43,7 @@ public class ScavengrMbleApplication extends Application {
         // Set your Facebook App Id in strings.xml
       //  ParseFacebookUtils.initialize(getString(R.string.app_id));
         ParseFacebookUtils.initialize(this);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
 
 
 
