@@ -20,7 +20,7 @@
         android:text="@string/login"
         android:textColor="#fff"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/button_login"
+        android:background="@drawable/login_button_normal"
         />
 
 

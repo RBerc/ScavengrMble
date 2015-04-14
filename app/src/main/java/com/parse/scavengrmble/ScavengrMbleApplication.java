@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.PushService;
@@ -40,8 +41,7 @@ public class ScavengrMbleApplication extends Application {
 
         // Set your Facebook App Id in strings.xml
       //  ParseFacebookUtils.initialize(getString(R.string.app_id));
-
-
+        ParseFacebookUtils.initialize(this);
 
 
 
