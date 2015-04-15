@@ -22,6 +22,7 @@ import com.parse.ParseUser;
 
 import java.util.Arrays;
 import java.util.List;
+
 public class LoginActivity extends Activity {
     private Button loginButton;
     private Dialog progressDialog;

@@ -20,6 +20,8 @@ import com.facebook.model.GraphUser;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
+
+
 public class HomeListActivity extends ListActivity {
     private Activity mActivity = this;
     private HomeViewAdapter mHomeViewAdapter;
