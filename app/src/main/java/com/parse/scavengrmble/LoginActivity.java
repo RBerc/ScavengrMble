@@ -98,6 +98,7 @@ public class LoginActivity extends Activity{
     private void showHomeListActivity() {
 
         Intent intent = new Intent(this, HomeListActivity.class);
+        //Intent intent = new Intent(this, NewPhotoActivity.class);
         startActivity(intent);
         finish(); // This closes the login screen so it's not on the back stack
     }
