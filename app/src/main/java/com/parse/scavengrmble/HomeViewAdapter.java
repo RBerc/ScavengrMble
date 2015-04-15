@@ -89,15 +89,15 @@ public class HomeViewAdapter extends ParseQueryAdapter<Photo> {
         usernameView.setText((String) user.get("displayName"));
 
         // Set up the actual photo
-        ParseImageView anypicPhotoView = (ParseImageView) v.findViewById(R.id.photo);
+        ParseImageView scavengrPhotoView = (ParseImageView) v.findViewById(R.id.photo);
         ParseFile photoFile = photo.getImage();
 
         // TODO (future) - get image bitmap, then set the image view with setImageBitmap()
         // we can use the decodeBitmap tricks to reduce the size to save memory
 
         if (photoFile != null) {
-            anypicPhotoView.setParseFile(photoFile);
-            anypicPhotoView.loadInBackground(new GetDataCallback() {
+            scavengrPhotoView.setParseFile(photoFile);
+            scavengrPhotoView.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] data, ParseException e) {
                     // nothing to do
@@ -105,7 +105,7 @@ public class HomeViewAdapter extends ParseQueryAdapter<Photo> {
                 }
             });
         } else { // Clear ParseImageView if an object doesn't have a photo
-            anypicPhotoView.setImageResource(android.R.color.transparent);
+            scavengrPhotoView.setImageResource(android.R.color.transparent);
         }
 
 

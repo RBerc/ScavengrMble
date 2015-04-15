@@ -1,7 +1,4 @@
 package com.parse.scavengrmble;
-
-import java.util.ArrayList;
-import java.util.List;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -13,28 +10,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
 import com.facebook.FacebookRequestError;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphRequest.Callback;
-import com.facebook.GraphResponse;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.model.GraphUser;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseQuery;
-import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
-
-
+import java.util.ArrayList;
+import java.util.List;
 public class HomeListActivity extends ListActivity {
-
-
     private HomeViewAdapter mHomeViewAdapter;
     private UserViewAdapter mUserViewAdapter;
     @Override
@@ -42,7 +34,7 @@ public class HomeListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_list);
         ListView lv = getListView();
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 // Photo clicked == parent.getItemAtPosition(position)
@@ -55,12 +47,11 @@ public class HomeListActivity extends ListActivity {
         mUserViewAdapter = new UserViewAdapter(this);
 // Default view
         setListAdapter(mHomeViewAdapter);
-
 // Fetch Facebook user info if the session is active
-      //  CallbackManager session = ParseFacebookUtils.;
-      //  if (session != null && session.()) {
-       //     makeMeRequest();
-      //  }
+        Session session = ParseFacebookUtils.getSession();
+        if (session != null && session.isOpened()) {
+            makeMeRequest();
+        }
     }
     @Override
     public void onResume() {
@@ -131,10 +122,10 @@ public class HomeListActivity extends ListActivity {
      * Requesting and setting user data. Essentially, this is the User constructor
      */
     private void makeMeRequest() {
-        GraphRequest request = GraphRequest.newMeRequest(ParseFacebookUtils.getSession(),
-                new Callback() {
+        Request request = Request.newMeRequest(ParseFacebookUtils.getSession(),
+                new Request.GraphUserCallback() {
                     @Override
-                    public void onCompleted(Graph user, Response response) {
+                    public void onCompleted(GraphUser user, Response response) {
                         if (user != null) {
 // get the relevant data using the GraphAPI
 // and store them as fields in our ParseUser
@@ -160,7 +151,7 @@ public class HomeListActivity extends ListActivity {
                             if( currentUser.get("userAlreadyAutoFollowedFacebookFriends")!=null &&
                                     ((Boolean) currentUser.get("userAlreadyAutoFollowedFacebookFriends")) ){
 // do nothing
-                                Log.i(ScavengrMbleApplication.Tag, "Already followed facebook friends");
+                                Log.i(ScavengrMbleApplication.TAG, "Already followed facebook friends");
                             } else{
                                 autoFollowFacebookFriendsRequest();
                             }
@@ -170,13 +161,13 @@ public class HomeListActivity extends ListActivity {
                             installation.saveInBackground();
 // handle errors accessing data from facebook
                         } else if (response.getError() != null) {
-                            if ((response.getError().getCategory() == FacebookRequestError.Category.)
+                            if ((response.getError().getCategory() == FacebookRequestError.Category.AUTHENTICATION_RETRY)
                                     || (response.getError().getCategory() == FacebookRequestError.Category.AUTHENTICATION_REOPEN_SESSION)) {
-                                Log.i(ScavengrMbleApplication.Tag,
+                                Log.i(ScavengrMbleApplication.TAG,
                                         "The facebook session was invalidated.");
                                 onLogoutButtonClicked();
                             } else {
-                                Log.i(AnypicApplication.TAG,
+                                Log.i(ScavengrMbleApplication.TAG,
                                         "Some other error: "
                                                 + response.getError()
                                                 .getErrorMessage());
@@ -220,7 +211,7 @@ public class HomeListActivity extends ListActivity {
                                         currentUser.saveInBackground();
                                     } else {
 // friendsQuery failed
-                                        Log.i(ScavengrMbleApplication.Tag, "Query to find facebook friends in Parse failed");
+                                        Log.i(ScavengrMbleApplication.TAG, "Query to find facebook friends in Parse failed");
                                     }
                                 }
                             }); // end findInBackground()
@@ -228,11 +219,11 @@ public class HomeListActivity extends ListActivity {
                         } else if (response.getError() != null) {
                             if ((response.getError().getCategory() == FacebookRequestError.Category.AUTHENTICATION_RETRY)
                                     || (response.getError().getCategory() == FacebookRequestError.Category.AUTHENTICATION_REOPEN_SESSION)) {
-                                Log.i(AnypicApplication.TAG,
+                                Log.i(ScavengrMbleApplication.TAG,
                                         "The facebook session was invalidated.");
                                 onLogoutButtonClicked();
                             } else {
-                                Log.i(AnypicApplication.TAG,
+                                Log.i(ScavengrMbleApplication.TAG,
                                         "Some other error: "
                                                 + response.getError()
                                                 .getErrorMessage());
@@ -264,4 +255,5 @@ public class HomeListActivity extends ListActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-    }}
+    }
+}

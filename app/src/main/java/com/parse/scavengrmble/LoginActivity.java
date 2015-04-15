@@ -42,7 +42,7 @@ public class LoginActivity extends Activity{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(ScavengrMbleApplication.Tag, "Login button clicked");
+                Log.i(ScavengrMbleApplication.TAG, "Login button clicked");
                 onLoginButtonClicked();
             }
         });
@@ -63,21 +63,20 @@ public class LoginActivity extends Activity{
     private void onLoginButtonClicked() {
         LoginActivity.this.progressDialog = ProgressDialog.show(
                 LoginActivity.this, "", "Logging in...", true);
-        List<String> permissions = Arrays.asList("public_profile", "user_about_me", "user_friends");
-        ParseFacebookUtils.logInWithReadPermissionsInBackground(this,permissions, new LogInCallback()
-        {
+        List<String> permissions = Arrays.asList("public_profile","user_about_me","user_friends");
+        ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
                 LoginActivity.this.progressDialog.dismiss();
                 if (user == null) {
-                    Log.i(ScavengrMbleApplication.Tag,
+                    Log.i(ScavengrMbleApplication.TAG,
                             "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
-                    Log.i(ScavengrMbleApplication.Tag,
+                    Log.i(ScavengrMbleApplication.TAG,
                             "User signed up and logged in through Facebook!");
                     showHomeListActivity();
                 } else {
-                    Log.i(ScavengrMbleApplication.Tag,
+                    Log.i(ScavengrMbleApplication.TAG,
                             "User logged in through Facebook!");
                     showHomeListActivity();
                 }
@@ -91,8 +90,8 @@ public class LoginActivity extends Activity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
-        ParseFacebookUtils.onActivityResult(requestCode,resultCode,data);
+        ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+        //ParseFacebookUtils.onActivityResult(requestCode,resultCode,data);
 
     }
 

@@ -8,7 +8,6 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.PushService;
-import com.facebook.FacebookSdk;
 
 
 
@@ -19,7 +18,7 @@ import com.facebook.FacebookSdk;
  * Created by Rob on 4/10/2015.
  */
 public class ScavengrMbleApplication extends Application {
-    static final String Tag = "Scavengr";
+    static final String TAG = "Scavengr";
 
     public void onCreate() {
         super.onCreate();
@@ -41,9 +40,9 @@ public class ScavengrMbleApplication extends Application {
         Parse.initialize(this, "TRAtaPKr8X8DrosUrftKnvmjhfwU00FV4JqoyqL6", "P5GrPz6OB5ZOW3UlT57AgC91Nd0x3o4aPnsOTsiy");
 
         // Set your Facebook App Id in strings.xml
-      //  ParseFacebookUtils.initialize(getString(R.string.app_id));
-        ParseFacebookUtils.initialize(this);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
+        ParseFacebookUtils.initialize(getString(R.string.app_id));
+        //ParseFacebookUtils.initialize(this);
+       // FacebookSdk.sdkInitialize(this.getApplicationContext());
 
 
 
