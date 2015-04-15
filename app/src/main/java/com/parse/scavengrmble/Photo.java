@@ -12,25 +12,35 @@ import com.parse.ParseUser;
 
 public class Photo extends ParseObject {
 
-    public Photo(){
-        //Default constructor
+    public static final String IMAGE = "image";
+    public static final String USER = "user";
+    public static final String THUMBNAIL = "thumbnail";
+
+    public Photo() {
+// A default constructor is required.
     }
-    public ParseFile getImage(){return getParseFile("image");}
-    public void setImage(ParseFile file){put("image",file);}
+
+    public ParseFile getImage() {
+        return getParseFile(IMAGE);
+    }
+
+    public void setImage(ParseFile file) {
+        put(IMAGE, file);
+    }
+
     public ParseUser getUser() {
-        return getParseUser("user");
+        return getParseUser(USER);
     }
 
     public void setUser(ParseUser user) {
-        put("user", user);
+        put(USER, user);
     }
 
     public ParseFile getThumbnail() {
-        return getParseFile("thumbnail");
+        return getParseFile(THUMBNAIL);
     }
 
     public void setThumbnail(ParseFile file) {
-        put("thumbnail", file);
+        put(THUMBNAIL, file);
     }
-
 }

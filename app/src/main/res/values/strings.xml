@@ -15,10 +15,13 @@
     <string name="cancel_button_text">Cancel</string>
 
     <string name="title_activity_login">Scavengr</string>
+    <string name="title_activity_new_photo">Add a new photo</string>
     <string name="login_intro">Login to Scavengr using your Facebook account</string>
     <string name="login">Log in</string>
     <string name="logout">Log out</string>
     <string name="app_id">1547111195538085</string>
     <string name="no_data">No data</string>
+    <string name="send">Send</string>
+    <string name="facebook_app_id">1547111195538085</string>
 
 </resources>

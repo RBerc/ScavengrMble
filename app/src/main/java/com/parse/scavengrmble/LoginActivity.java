@@ -1,6 +1,5 @@
 package com.parse.scavengrmble;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -23,22 +22,13 @@ import com.parse.ParseUser;
 
 import java.util.Arrays;
 import java.util.List;
-
-/**
- * Created by Rob on 4/10/2015.
- * This is nonsense let me push
- */
-
-
-public class LoginActivity extends Activity{
+public class LoginActivity extends Activity {
     private Button loginButton;
     private Dialog progressDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,20 +37,16 @@ public class LoginActivity extends Activity{
                 onLoginButtonClicked();
             }
         });
-
-        // Check if there is a currently logged in user
-        // and they are linked to a Facebook account.
+// Check if there is a currently logged in user
+// and they are linked to a Facebook account.
         ParseUser currentUser = ParseUser.getCurrentUser();
         if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
-            // Go to the main photo list view activity
+// Go to the main photo list view activity
             showHomeListActivity();
         }
-
-        // For push notifications
+// For push notifications
         ParseAnalytics.trackAppOpened(getIntent());
-
     }
-
     private void onLoginButtonClicked() {
         LoginActivity.this.progressDialog = ProgressDialog.show(
                 LoginActivity.this, "", "Logging in...", true);
@@ -84,7 +70,6 @@ public class LoginActivity extends Activity{
             }
         });
     }
-
     /**
      * Used to provide "single sign-on" for users who don't have the Facebook app installed
      */
@@ -92,48 +77,37 @@ public class LoginActivity extends Activity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
-        //ParseFacebookUtils.onActivityResult(requestCode,resultCode,data);
-
     }
-
     private void showHomeListActivity() {
-
+//Log.i(AnypicApplication.TAG, "entered showHomeListActivity");
         Intent intent = new Intent(this, HomeListActivity.class);
-        //Intent intent = new Intent(this, NewPhotoActivity.class);
         startActivity(intent);
         finish(); // This closes the login screen so it's not on the back stack
     }
-
     /***************************************************************************/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
+// Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+// Handle action bar item clicks here. The action bar will
+// automatically handle clicks on the Home/Up button, so long
+// as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-
         public PlaceholderFragment() {
         }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -142,5 +116,4 @@ public class LoginActivity extends Activity{
             return rootView;
         }
     }
-
 }
