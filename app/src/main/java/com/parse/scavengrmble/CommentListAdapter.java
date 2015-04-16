@@ -2,7 +2,7 @@ package com.parse.scavengrmble;
 
 /**
  * Created by Rob on 4/14/2015.
- * Damnit
+ *
  */
 import android.content.Context;
 import android.view.View;

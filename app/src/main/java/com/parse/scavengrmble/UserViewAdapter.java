@@ -3,6 +3,7 @@ package com.parse.scavengrmble;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -69,8 +70,8 @@ public class UserViewAdapter extends ParseQueryAdapter<Photo> {
         } else { // Clear ParseImageView if an object doesn't have a photo
             anypicPhotoView.setImageResource(android.R.color.transparent);
         }
-     /*   TextView likeCount = (TextView) v.findViewById(R.id.like_count);
-        likeCount.setOnTouchListener(new OnTouchListener() {
+        TextView likeCount = (TextView) v.findViewById(R.id.like_count);
+        likeCount.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -81,11 +82,11 @@ public class UserViewAdapter extends ParseQueryAdapter<Photo> {
                 return false;
             }
         });
-        likeCount.setOnClickListener(new OnClickListener() {
+        likeCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
-        });*/
+        });
         return v;
     }
 }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.parse.scavengrmble" >
 
     <uses-sdk
         android:targetSdkVersion="21"
-        android:minSdkVersion="19"/>
+        android:minSdkVersion="14"
+        />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus"/>
@@ -16,6 +18,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <permission
         android:name="com.parse.scavengrmble.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />

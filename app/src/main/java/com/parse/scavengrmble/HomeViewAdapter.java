@@ -59,7 +59,7 @@ public class HomeViewAdapter extends ParseQueryAdapter<Photo> {
         TextView usernameView = (TextView) v.findViewById(R.id.user_name);
         usernameView.setText((String) user.get(ParseColumn.USER_DISPLAY_NAME));
 // Set up the actual photo
-        ImageView anypicPhotoView = (ImageView) v.findViewById(R.id.photo);
+        ImageView scavengrPhotoView = (ImageView) v.findViewById(R.id.photo);
         ParseFile photoFile = photo.getImage();
 // TODO (future) - get image bitmap, then set the image view with setImageBitmap()
 // we can use the decodeBitmap tricks to reduce the size to save memory
@@ -67,9 +67,9 @@ public class HomeViewAdapter extends ParseQueryAdapter<Photo> {
             Picasso.with(getContext())
                     .load(photoFile.getUrl())
                     .placeholder(new ColorDrawable(Color.LTGRAY))
-                    .into(anypicPhotoView);
+                    .into(scavengrPhotoView);
         } else { // Clear ParseImageView if an object doesn't have a photo
-            anypicPhotoView.setImageResource(android.R.color.transparent);
+            scavengrPhotoView.setImageResource(android.R.color.transparent);
         }
         final TextView likeCountView = (TextView) v.findViewById(R.id.like_count);
         final TextView commentCountView = (TextView) v.findViewById(R.id.comment_count);

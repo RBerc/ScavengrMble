@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.parse.DeleteCallback;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -23,6 +25,7 @@ import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 /**
  * Created by Rob on 4/14/2015.
  */
@@ -35,11 +38,11 @@ public class PhotoActivity extends android.app.Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
-        getActionBar().hide();
+      //  getActionBar().hide();
         final ImageView photoView = (ImageView) findViewById(R.id.photo);
         final ImageView fbPhotoView = (ImageView) findViewById(R.id.user_thumbnail);
         final TextView usernameView = (TextView) findViewById(R.id.user_name);
-       // final TextView likeCountView = (TextView) findViewById(R.id.like_count);
+        final TextView likeCountView = (TextView) findViewById(R.id.like_count);
         final ProgressBar loadingProgress = (ProgressBar) findViewById(R.id.loading_progress);
         final ListView commentListView = (ListView) findViewById(R.id.comment_list);
         final EditText commentEditText = (EditText) findViewById(R.id.comment);
@@ -47,7 +50,8 @@ public class PhotoActivity extends android.app.Activity {
         final ProgressBar sendingProgress = (ProgressBar) findViewById(R.id.sending_progress);
         Intent intent = getIntent();
         String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
-       // ViewPressEffectHelper.attach(likeCountView);
+        ViewPressEffectHelper.attach(likeCountView);
+      //  ViewPressEffectHelper.attach(likeCountView);
         ParseQuery<Photo> query = new ParseQuery<Photo>(Photo.class.getSimpleName());
         query.whereEqualTo(ParseColumn.OBJECT_ID, photoObjectId);
         query.include(Photo.USER);
@@ -70,12 +74,12 @@ public class PhotoActivity extends android.app.Activity {
                 } else { // Clear ParseImageView if an object doesn't have a photo
                     photoView.setImageResource(android.R.color.transparent);
                 }
-                /*ParseQuery<Activity> likeQuery = new ParseQuery<Activity>(Activity.class.getSimpleName());
+                ParseQuery<Activity> likeQuery = new ParseQuery<Activity>(Activity.class.getSimpleName());
                 likeQuery.whereEqualTo(Activity.TYPE, Activity.TYPE_LIKE);
                 likeQuery.include(Activity.FROM_USER);
                 likeQuery.whereExists(Activity.PHOTO);
-                likeQuery.whereEqualTo(Activity.PHOTO, photo);*/
-              /*  /*likeQuery.findInBackground(new FindCallback<Activity>() {
+                likeQuery.whereEqualTo(Activity.PHOTO, photo);
+                likeQuery.findInBackground(new FindCallback<Activity>() {
                     @Override
                     public void done(List<Activity> activities, ParseException e) {
                         likeCountView.setText(String.valueOf(activities.size()));
@@ -91,7 +95,7 @@ public class PhotoActivity extends android.app.Activity {
                             setUnliked(likeCountView);
                         }
                     }
-                });*/
+                });
                 final CommentListAdapter commentListAdapter = new CommentListAdapter(mActivity, photo);
                 commentListView.setAdapter(commentListAdapter);
                 commentListAdapter.setPaginationEnabled(false);
@@ -133,7 +137,7 @@ public class PhotoActivity extends android.app.Activity {
             }
         });
     }
-    /*public void setUnliked(TextView v) {
+    public void setUnliked(TextView v) {
         v.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
         v.setOnClickListener(new OnClickListener() {
             @Override
@@ -176,6 +180,6 @@ public class PhotoActivity extends android.app.Activity {
                 mLikeActivity = null;
             }
         });
-    }*/
+    }
 
 }
