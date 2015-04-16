@@ -34,5 +34,4 @@
         android:layout_height="wrap_content"
         android:text="@string/cancel_button_text" />
 
-
 </LinearLayout>

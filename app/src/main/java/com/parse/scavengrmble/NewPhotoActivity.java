@@ -22,6 +22,7 @@ import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -56,6 +57,8 @@ public class NewPhotoActivity extends Activity {
     private ParseFile image;
     private ParseFile thumbnail;
 
+    //private DrawerLayout mNavigationDrawer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         photo = new Photo();
@@ -77,6 +80,9 @@ public class NewPhotoActivity extends Activity {
             manager.beginTransaction().add(R.id.fragmentContainer, fragment)
                     .commit();
         }
+
+        //mNavigationDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //mNavigationDrawer.openDrawer(R.id.navigation_drawer);
     }
 
     /** Create the Intent which opens the Camera or some image gallery */
@@ -120,20 +126,20 @@ public class NewPhotoActivity extends Activity {
 
                 // first try and determine if the picture was taken by the camera
                 if(data == null){
-                    Log.i(ScavengrMbleApplication.Tag, "intent data was null");
+                    Log.i(ScavengrMbleApplication.TAG, "intent data was null");
                     isCamera = true;
                 }
                 else {
                     final String action = data.getAction();
                     if(action == null)
                     {
-                        Log.i(ScavengrMbleApplication.Tag, "Intent data.getAction() was null");
+                        Log.i(ScavengrMbleApplication.TAG, "Intent data.getAction() was null");
                         isCamera = false;
                     }
                     else
                     {
-                        isCamera = action.equals(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        Log.i(ScavengrMbleApplication.Tag, "Intent data.getAction was equal to camera capture? " + isCamera);
+                        isCamera = action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
+                        Log.i(ScavengrMbleApplication.TAG, "Intent data.getAction was equal to camera capture? " + isCamera);
                     }
                 }
 
@@ -149,11 +155,11 @@ public class NewPhotoActivity extends Activity {
                     // if data is null, then selectImageUri = null, else selectImageUri = data.getData()
                     selectedImageUri = data == null ? null : data.getData();
 
-                    Log.i(ScavengrMbleApplication.Tag, "selectedImageUri is "+ selectedImageUri);
+                    Log.i(ScavengrMbleApplication.TAG, "selectedImageUri is "+ selectedImageUri);
                     if(selectedImageUri != null){
                         // we need to decode the file from its URI
                         String realPath = getPathFromUri(getApplicationContext(), selectedImageUri);
-                        Log.i(ScavengrMbleApplication.Tag, "selectedImageUri *real path* is "+ realPath);
+                        Log.i(ScavengrMbleApplication.TAG, "selectedImageUri *real path* is "+ realPath);
                         savePhotoFiles(realPath);
                         return;
                     }
@@ -168,7 +174,7 @@ public class NewPhotoActivity extends Activity {
                     if(selectedImageUri.getPath() != null){
                         savePhotoFiles(selectedImageUri.getPath());
                     } else {
-                        Log.i(ScavengrMbleApplication.Tag, "Error finding file path");
+                        Log.i(ScavengrMbleApplication.TAG, "Error finding file path");
                         cancelActivity();
                     }
                 } else {
@@ -400,7 +406,7 @@ public class NewPhotoActivity extends Activity {
             }
         });
 
-        Log.i(ScavengrMbleApplication.Tag, "Finished saving the photos to ParseFiles!");
+        Log.i(ScavengrMbleApplication.TAG, "Finished saving the photos to ParseFiles!");
     }
 
     /** Create a file Uri for saving an image */
@@ -423,7 +429,7 @@ public class NewPhotoActivity extends Activity {
     private static File getOutputMediaFile(int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
-        Log.i(ScavengrMbleApplication.Tag, "entering getOutputMediaFile");
+        Log.i(ScavengrMbleApplication.TAG, "entering getOutputMediaFile");
 
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "Anypic");
@@ -435,7 +441,7 @@ public class NewPhotoActivity extends Activity {
         // in order to do this!!
         if (! mediaStorageDir.exists()){
             if (! mediaStorageDir.mkdirs()){
-                Log.i(ScavengrMbleApplication.Tag, "getOutputMediaFile failed to create directory");
+                Log.i(ScavengrMbleApplication.TAG, "getOutputMediaFile failed to create directory");
                 return null;
             }
         }

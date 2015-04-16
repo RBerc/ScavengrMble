@@ -68,7 +68,7 @@ public class NewPhotoFragment extends Fragment {
                     public void done(ParseException e) {
                         getProgressDialog().dismiss();
                         if (e == null) {
-                            Log.i(ScavengrMbleApplication.Tag, "Saved new Photo to Parse!");
+                            Log.i(ScavengrMbleApplication.TAG, "Saved new Photo to Parse!");
                             getActivity().setResult(Activity.RESULT_OK);
                             getActivity().finish();
                         } else {
@@ -111,7 +111,7 @@ public class NewPhotoFragment extends Fragment {
         super.onResume();
         ParseFile photoFile = ((NewPhotoActivity) getActivity()).getImageFile();
         if (photoFile != null) {
-            Log.i(ScavengrMbleApplication.Tag, "The photo WAS taken");
+            Log.i(ScavengrMbleApplication.TAG, "The photo WAS taken");
             photoPreview.setParseFile(photoFile);
             photoPreview.loadInBackground(new GetDataCallback() {
                 @Override

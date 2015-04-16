@@ -20,5 +20,23 @@
     <string name="logout">Log out</string>
     <string name="app_id">1547111195538085</string>
     <string name="no_data">No data</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+
+    <string name="title_section1">Home</string>
+    <string name="title_section2">Create Game</string>
+    <string name="title_section3">Account</string>
+    <string name="title_section4">Log Out</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+    <string name="title_activity_account">AccountActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
 </resources>
