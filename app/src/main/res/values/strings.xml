@@ -23,5 +23,6 @@
     <string name="no_data">No data</string>
     <string name="send">Send</string>
     <string name="facebook_app_id">1547111195538085</string>
+    <string name="zero">0</string>
 
 </resources>
