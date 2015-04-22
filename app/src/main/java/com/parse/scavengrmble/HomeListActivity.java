@@ -2,7 +2,11 @@ package com.parse.scavengrmble;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.Request;
@@ -18,7 +24,9 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseFile;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 
@@ -51,6 +59,23 @@ public class HomeListActivity extends ListActivity {
         if (session != null && session.isOpened()) {
             makeMeRequest();
         }
+
+        // tests the ImageCompare class
+//        Button testButton = (Button) findViewById(R.id.test_button);
+//        testButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Photo img1 = mHomeViewAdapter.getItem(0);
+//                ParseFile img2 = mHomeViewAdapter.getItem(1).getImage();
+//                //Bitmap bm = ((BitmapDrawable)img1.getDrawable()).getBitmap();
+//                Bitmap bm1 = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
+//                double diff = ImageCompare.compareImagesRGBAll(img1, img2);
+//                Context context = getApplicationContext();
+//                CharSequence text = "Percent Difference: " + diff + "%";
+//                Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+//                toast.show();
+//            }
+//        });
     }
     @Override
     public void onResume() {

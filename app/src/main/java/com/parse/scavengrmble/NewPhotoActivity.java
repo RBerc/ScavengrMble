@@ -344,7 +344,6 @@ public class NewPhotoActivity extends Activity {
         // Convert to Bitmap to assist with resizing
         Bitmap anypicImage = decodeSampledBitmapFromFile(pathToFile, REQ_WIDTH, REQ_HEIGHT);
         //Bitmap anypicImage = BitmapFactory.decodeByteArray(data, 0, data.length);
-
         // Override Android default landscape orientation and save portrait
         Matrix matrix = new Matrix();
         matrix.postRotate(90);
