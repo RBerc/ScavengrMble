@@ -4,7 +4,7 @@
     package="com.parse.scavengrmble" >
 
     <uses-sdk
-        android:targetSdkVersion="21"
+        android:targetSdkVersion="19"
         android:minSdkVersion="14"
         />
 
