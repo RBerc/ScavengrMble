@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.parse.DeleteCallback;
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -50,8 +49,7 @@ public class PhotoActivity extends android.app.Activity {
         final ProgressBar sendingProgress = (ProgressBar) findViewById(R.id.sending_progress);
         Intent intent = getIntent();
         String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
-        ViewPressEffectHelper.attach(likeCountView);
-      //  ViewPressEffectHelper.attach(likeCountView);
+       // ViewPressEffectHelper.attach(likeCountView);
         ParseQuery<Photo> query = new ParseQuery<Photo>(Photo.class.getSimpleName());
         query.whereEqualTo(ParseColumn.OBJECT_ID, photoObjectId);
         query.include(Photo.USER);
@@ -79,23 +77,23 @@ public class PhotoActivity extends android.app.Activity {
                 likeQuery.include(Activity.FROM_USER);
                 likeQuery.whereExists(Activity.PHOTO);
                 likeQuery.whereEqualTo(Activity.PHOTO, photo);
-                likeQuery.findInBackground(new FindCallback<Activity>() {
-                    @Override
-                    public void done(List<Activity> activities, ParseException e) {
-                        likeCountView.setText(String.valueOf(activities.size()));
-                        for (Activity activity : activities) {
-                            if (activity.getFromUser().getUsername()
-                                    .equals(ParseUser.getCurrentUser().getUsername())) {
-                                mLikeActivity = activity;
-                            }
-                        }
-                        if (mLikeActivity != null) {
-                            setLiked(likeCountView);
-                        } else {
-                            setUnliked(likeCountView);
-                        }
-                    }
-                });
+//                likeQuery.findInBackground(new FindCallback<Activity>() {
+//                    @Override
+//                    public void done(List<Activity> activities, ParseException e) {
+//                        likeCountView.setText(String.valueOf(activities.size()));
+//                        for (Activity activity : activities) {
+//                            if (activity.getFromUser().getUsername()
+//                                    .equals(ParseUser.getCurrentUser().getUsername())) {
+//                                mLikeActivity = activity;
+//                            }
+//                        }
+//                        if (mLikeActivity != null) {
+//                            setLiked(likeCountView);
+//                        } else {
+//                            setUnliked(likeCountView);
+//                        }
+//                    }
+//                });
                 final CommentListAdapter commentListAdapter = new CommentListAdapter(mActivity, photo);
                 commentListView.setAdapter(commentListAdapter);
                 commentListAdapter.setPaginationEnabled(false);
