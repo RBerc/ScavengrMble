@@ -24,5 +24,6 @@
     <string name="send">Send</string>
     <string name="facebook_app_id">1564551220460749</string>
     <string name="zero">0</string>
+    <string name="title_activity_play_game">PlayGameActivity</string>
 
 </resources>

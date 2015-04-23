@@ -4,12 +4,12 @@
     package="com.parse.scavengrmble" >
 
     <uses-sdk
-        android:targetSdkVersion="19"
         android:minSdkVersion="14"
-        />
+        android:targetSdkVersion="19" />
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,49 +18,62 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <permission
         android:name="com.parse.scavengrmble.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.parse.scavengrmble.permission.C2D_MESSAGE" />
+    <!--Removed the "android: in front of uses-permission for the two below"-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
+        android:name=".ScavengrMbleApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".ScavengrMbleApplication">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="com.parse.scavengrmble.HomeListActivity"
+            android:name=".HomeListActivity"
             android:label="@string/title_activity_home_list" >
+
             <!-- <meta-data -->
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
             <!-- android:value="android.app.Activity" /> -->
         </activity>
         <activity
-            android:name="com.parse.scavengrmble.NewPhotoActivity"
+            android:name=".NewPhotoActivity"
             android:label="@string/title_activity_new_photo" >
         </activity>
         <activity
-            android:name="com.parse.scavengrmble.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.parse.scavengrmble.PhotoActivity"
+            android:name=".PhotoActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
+
         <service android:name="com.parse.PushService" />
+
         <receiver android:name="com.parse.ParseBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -77,5 +90,11 @@
                 <category android:name="com.parse.scavengrmble" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".PlayGameActivity"
+            android:label="@string/title_activity_play_game" >
+        </activity>
     </application>
+
 </manifest>
