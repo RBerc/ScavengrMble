@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -79,6 +80,7 @@ public class PlayGameActivity extends android.app.Activity {
         setContentView(R.layout.activity_play_game);
 
         final ImageView photoView1 = (ImageView) findViewById(R.id.photo1);
+        final ImageView photoView2 = (ImageView) findViewById(R.id.photo2);
         final ImageView fbPhotoView = (ImageView) findViewById(R.id.user_thumbnail2);
         final TextView usernameView = (TextView) findViewById(R.id.user_name2);
         final Button confirmButton = (Button) findViewById(R.id.btn_confirm);
@@ -109,6 +111,19 @@ public class PlayGameActivity extends android.app.Activity {
             Toast toast2 = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast2.show();
         }
+
+        // confirm button
+        confirmButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap bm1 = ((BitmapDrawable)photoView1.getDrawable()).getBitmap();
+                Bitmap bm2 = ((BitmapDrawable)photoView2.getDrawable()).getBitmap();
+                bm2 = Bitmap.createScaledBitmap(bm2, bm1.getWidth(), bm1.getHeight(), false);
+                double diff = ImageCompare.compareImagesRGBAll(bm1, bm2);
+                Toast toastComp = Toast.makeText(getApplicationContext(), diff+"% difference", Toast.LENGTH_LONG);
+                toastComp.show();
+            }
+        });
     }
 
     private void loadImages(ParseFile thumbnail, final ImageView img) {
