@@ -8,9 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,27 +15,18 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.DeleteCallback;
-import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
-import com.parse.ParseQueryAdapter.OnQueryLoadListener;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -78,6 +66,12 @@ public class PlayGameActivity extends android.app.Activity {
         final TextView usernameView = (TextView) findViewById(R.id.user_name2);
         final ProgressBar loadingProgress = (ProgressBar) findViewById(R.id.loading_progress2);
         final Button confirmButton = (Button) findViewById(R.id.btn_confirm);
+       loadingProgress.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startCamera();
+           }
+       });
         Intent intent = getIntent();
         String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
         ParseQuery<Photo> query = new ParseQuery<Photo>(Photo.class.getSimpleName());
@@ -92,7 +86,9 @@ public class PlayGameActivity extends android.app.Activity {
         Toast toast = Toast.makeText(this, photoObjectId, Toast.LENGTH_LONG);
         toast.show();
         // TODO: call newPhoto() when a button is pressed
-        //newPhoto(savedInstanceState);
+
+
+      //  newPhoto(savedInstanceState);
         // TODO: grab the imageView and the fragmentContainer, convert them to bitmaps and compare them
     }
 
@@ -210,4 +206,5 @@ public class PlayGameActivity extends android.app.Activity {
 
         return mediaFile;
     }
+
 }

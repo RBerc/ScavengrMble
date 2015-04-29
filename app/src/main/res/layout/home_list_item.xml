@@ -60,5 +60,15 @@
             android:text="@string/zero"
             android:textSize="15sp" >
         </TextView>
+       <TextView
+           android:id="@+id/location"
+           android:layout_width="80dp"
+           android:layout_height="wrap_content"
+
+           android:gravity="center_vertical"
+           android:paddingLeft="5dp"
+           android:text="@string/location"
+           android:textSize="15sp" >
+       </TextView>
     </LinearLayout>
 </LinearLayout>
