@@ -6,8 +6,11 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,8 +27,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.parse.DeleteCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
@@ -42,7 +48,7 @@ import java.util.List;
 
 
 public class PlayGameActivity extends android.app.Activity {
-    public static final String INTENT_EXTRA_PHOTO = "photo";
+    public static String INTENT_EXTRA_PHOTO = "photo";
     android.app.Activity mActivity = this;
     Photo mPhoto;
 
@@ -61,6 +67,13 @@ public class PlayGameActivity extends android.app.Activity {
         setContentView(R.layout.activity_play_game);
 
         final ImageView photoView1 = (ImageView) findViewById(R.id.photo1);
+//        Bitmap currentImg = BitmapFactory.decodeResource(getResources(), photoView1.getId());
+//        Bundle prevBundle = getIntent().getBundleExtra("data");
+//        Bitmap prevImgBM = (Bitmap) prevBundle.get("data");
+//        photoView1.setImageBitmap(prevImgBM);
+//        Bitmap b = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("data"),0,getIntent().getByteArrayExtra("data").length);
+//        photoView1.setImageBitmap(b);
+
         final ImageView fbPhotoView = (ImageView) findViewById(R.id.user_thumbnail2);
         final TextView usernameView = (TextView) findViewById(R.id.user_name2);
         final ProgressBar loadingProgress = (ProgressBar) findViewById(R.id.loading_progress2);
@@ -68,38 +81,39 @@ public class PlayGameActivity extends android.app.Activity {
         Intent intent = getIntent();
         String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
         ParseQuery<Photo> query = new ParseQuery<Photo>(Photo.class.getSimpleName());
-        query.whereEqualTo(ParseColumn.OBJECT_ID, photoObjectId);
-        query.include(Photo.USER);
-        query.getFirstInBackground(new GetCallback<Photo>() {
-            @Override
-            public void done(final Photo photo, ParseException e) {
-                mPhoto = photo;
-                ParseUser user = photo.getUser();
-                Picasso.with(mActivity)
-                        .load("https://graph.facebook.com/" + user.getString(ParseColumn.USER_FACEBOOK_ID)
-                                + "/picture?type=square")
-                        .into(fbPhotoView);
-                usernameView.setText((String) user.get(ParseColumn.USER_DISPLAY_NAME));
-                ParseFile photoFile = photo.getImage();
-                if (photoFile != null) {
-                    Picasso.with(mActivity)
-                            .load(photoFile.getUrl())
-                            .placeholder(new ColorDrawable(Color.LTGRAY))
-                            .into(photoView1);
-                } else { // Clear ParseImageView if an object doesn't have a photo
-                    photoView1.setImageResource(android.R.color.transparent);
-                }
-                ParseQuery<Activity> likeQuery = new ParseQuery<Activity>(Activity.class.getSimpleName());
-                likeQuery.whereEqualTo(Activity.TYPE, Activity.TYPE_LIKE);
-                likeQuery.include(Activity.FROM_USER);
-                likeQuery.whereExists(Activity.PHOTO);
-                likeQuery.whereEqualTo(Activity.PHOTO, photo);
-            }
-        });
+        try {
+            Photo img = query.get(photoObjectId);
+            ParseFile imgFile = img.getImage();
+            loadImages(imgFile, photoView1);
+        } catch (ParseException e) {
+        }
+
+
+        Toast toast = Toast.makeText(this, photoObjectId, Toast.LENGTH_LONG);
+        toast.show();
         // TODO: call newPhoto() when a button is pressed
-        newPhoto(savedInstanceState);
+        //newPhoto(savedInstanceState);
         // TODO: grab the imageView and the fragmentContainer, convert them to bitmaps and compare them
     }
+
+    private void loadImages(ParseFile thumbnail, final ImageView img) {
+        if (thumbnail != null) {
+            thumbnail.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+                        img.setImageBitmap(bmp);
+                    } else {
+                    }
+                }
+            });
+        } else {
+            img.setImageResource(R.drawable.scavengrmobile);
+        }
+
+    }// load image
 
     private void newPhoto(Bundle savedInstanceState) {
         photo = new Photo();

@@ -1,8 +1,11 @@
 package com.parse.scavengrmble;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +26,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 /**
@@ -47,8 +51,8 @@ public class PhotoActivity extends android.app.Activity {
         final EditText commentEditText = (EditText) findViewById(R.id.comment);
         final Button sendButton = (Button) findViewById(R.id.btn_send);
         final ProgressBar sendingProgress = (ProgressBar) findViewById(R.id.sending_progress);
-        Intent intent = getIntent();
-        String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
+        final Intent intent = getIntent();
+        final String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
        // ViewPressEffectHelper.attach(likeCountView);
         ParseQuery<Photo> query = new ParseQuery<Photo>(Photo.class.getSimpleName());
         query.whereEqualTo(ParseColumn.OBJECT_ID, photoObjectId);
@@ -132,6 +136,15 @@ public class PhotoActivity extends android.app.Activity {
                         }
                     }
                 });
+            }
+        });
+
+        photoView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(PhotoActivity.this, PlayGameActivity.class);
+                i.putExtra(PlayGameActivity.INTENT_EXTRA_PHOTO, photoObjectId);
+                startActivity(i);
             }
         });
     }
