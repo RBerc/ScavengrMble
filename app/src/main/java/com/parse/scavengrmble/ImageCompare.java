@@ -1,6 +1,7 @@
 package com.parse.scavengrmble;
 
 import android.graphics.Bitmap;
+import android.widget.Toast;
 
 /**
  * Created by Kevin on 4/22/2015.
@@ -48,7 +49,7 @@ public class ImageCompare {
         int height2 = img2.getHeight();
 
         if ((width1 != width2) || (height1 != height2)) {
-            // error
+            return 100.0;
         }
 
         double diff = 0;

@@ -118,8 +118,12 @@ public class PlayGameActivity extends android.app.Activity {
             public void onClick(View view) {
                 Bitmap bm1 = ((BitmapDrawable)photoView1.getDrawable()).getBitmap();
                 Bitmap bm2 = ((BitmapDrawable)photoView2.getDrawable()).getBitmap();
+//                int height = (bm1.getHeight() + bm2.getHeight())/2;
+//                int width = (bm1.getWidth() + bm2.getWidth())/2;
+//                bm1 = Bitmap.createScaledBitmap(bm1, width, height, false);
+//                bm2 = Bitmap.createScaledBitmap(bm2, width, height, false);
                 bm2 = Bitmap.createScaledBitmap(bm2, bm1.getWidth(), bm1.getHeight(), false);
-                double diff = ImageCompare.compareImagesRGBPixel(bm1, bm2);
+                double diff = ImageCompare.compareImagesRGBAll(bm1, bm2);
 //                Toast toastComp = Toast.makeText(getApplicationContext(), diff+"% difference", Toast.LENGTH_LONG);
 //                toastComp.show();
                 if (diff < 15.0) {
@@ -182,6 +186,7 @@ public class PlayGameActivity extends android.app.Activity {
     private static void addPoints(int points) {
         ParseQuery<ParseUser> query = new ParseQuery<ParseUser>(ParseUser.class.getSimpleName());
         ParseUser currentUser = ParseUser.getCurrentUser();
+        points += currentUser.getInt("userScore");
         currentUser.put("userScore", points);
     }
 }
