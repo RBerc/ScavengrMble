@@ -22,6 +22,14 @@
             android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/user_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:textStyle="bold"/>
     </LinearLayout>
     <ImageView
         android:id="@+id/photo"
@@ -64,11 +72,11 @@
            android:id="@+id/location"
            android:layout_width="80dp"
            android:layout_height="wrap_content"
-
            android:gravity="center_vertical"
            android:paddingLeft="5dp"
            android:text="@string/location"
            android:textSize="15sp" >
        </TextView>
+
     </LinearLayout>
 </LinearLayout>

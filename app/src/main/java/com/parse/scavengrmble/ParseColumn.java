@@ -9,5 +9,5 @@ public class ParseColumn {
     public static final String INSTALLATION_USER = "user";
     public static final String USER_FACEBOOK_ID = "facebookId";
     public static final String USER_DISPLAY_NAME = "displayName";
-    public static final Integer USER_SCORE = 0;
+    public static final Integer userScore = 0;
 }
