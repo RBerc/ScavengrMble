@@ -57,10 +57,10 @@ public class HomeViewAdapter extends ParseQueryAdapter<Photo> {
                 .into(fbPhotoView);
 // Set up the username
         TextView usernameView = (TextView) v.findViewById(R.id.user_name);
-        usernameView.setText((String) user.get(ParseColumn.USER_DISPLAY_NAME));
-        String score = String.valueOf(user.getInt("userScore"));
-        TextView userScoreView = (TextView) v.findViewById(R.id.user_score);
-        userScoreView.setText((String) "Score: "+score);
+        String username = (String) user.get(ParseColumn.USER_DISPLAY_NAME);
+        username += "\t" + getScore();
+        usernameView.setText(username);
+        //usernameView.setText((String) user.get(ParseColumn.USER_DISPLAY_NAME));
 // Set up the actual photo
         ImageView scavengrPhotoView = (ImageView) v.findViewById(R.id.photo);
         ParseFile photoFile = photo.getImage();
@@ -158,5 +158,11 @@ public class HomeViewAdapter extends ParseQueryAdapter<Photo> {
                 });
             }
         });
+    }
+
+    private static int getScore() {
+        ParseQuery<ParseUser> query = new ParseQuery<ParseUser>(ParseUser.class.getSimpleName());
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        return currentUser.getInt("userScore");
     }
 }
