@@ -85,7 +85,7 @@ public class PlayGameActivity extends android.app.Activity {
         final TextView usernameView = (TextView) findViewById(R.id.user_name2);
         final Button confirmButton = (Button) findViewById(R.id.btn_confirm);
         Intent intent = getIntent();
-        String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
+        final String photoObjectId = intent.getStringExtra(INTENT_EXTRA_PHOTO);
         ParseQuery<Photo> query = new ParseQuery<Photo>(Photo.class.getSimpleName());
         try {
             Photo img = query.get(photoObjectId);
@@ -119,9 +119,24 @@ public class PlayGameActivity extends android.app.Activity {
                 Bitmap bm1 = ((BitmapDrawable)photoView1.getDrawable()).getBitmap();
                 Bitmap bm2 = ((BitmapDrawable)photoView2.getDrawable()).getBitmap();
                 bm2 = Bitmap.createScaledBitmap(bm2, bm1.getWidth(), bm1.getHeight(), false);
-                double diff = ImageCompare.compareImagesRGBAll(bm1, bm2);
-                Toast toastComp = Toast.makeText(getApplicationContext(), diff+"% difference", Toast.LENGTH_LONG);
-                toastComp.show();
+                double diff = ImageCompare.compareImagesRGBPixel(bm1, bm2);
+//                Toast toastComp = Toast.makeText(getApplicationContext(), diff+"% difference", Toast.LENGTH_LONG);
+//                toastComp.show();
+                if (diff < 15.0) {
+                    int points = (int) (100/diff);
+                    addPoints(points);
+                    Toast successToast = Toast.makeText(getApplicationContext(), "Congrats! "+points+" points added!", Toast.LENGTH_LONG);
+                    successToast.show();
+                    Intent i = new Intent(PlayGameActivity.this, HomeListActivity.class);
+                    startActivity(i);
+                }
+                else {
+                    Toast failToast = Toast.makeText(getApplicationContext(), "Comparison failed, try again!", Toast.LENGTH_LONG);
+                    failToast.show();
+                    Intent i = new Intent(PlayGameActivity.this, PhotoActivity.class);
+                    i.putExtra(PlayGameActivity.INTENT_EXTRA_PHOTO, photoObjectId);
+                    startActivity(i);
+                }
             }
         });
     }
@@ -162,5 +177,11 @@ public class PlayGameActivity extends android.app.Activity {
         ImageView picView = (ImageView)findViewById(R.id.photo2);
         //display the returned cropped image
         picView.setImageBitmap(thePic);
+    }
+
+    private static void addPoints(int points) {
+        ParseQuery<ParseUser> query = new ParseQuery<ParseUser>(ParseUser.class.getSimpleName());
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.put("userScore", points);
     }
 }

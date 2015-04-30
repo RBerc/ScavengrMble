@@ -346,7 +346,7 @@ public class NewPhotoActivity extends Activity {
         //Bitmap anypicImage = BitmapFactory.decodeByteArray(data, 0, data.length);
         // Override Android default landscape orientation and save portrait
         Matrix matrix = new Matrix();
-        matrix.postRotate(90);
+        //matrix.postRotate(90);6
         Bitmap rotatedImage = Bitmap.createBitmap(anypicImage, 0,
                 0, anypicImage.getWidth(), anypicImage.getHeight(),
                 matrix, true);
